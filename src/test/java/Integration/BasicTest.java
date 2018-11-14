@@ -1,22 +1,26 @@
 package Integration;
 
-import io.appium.java_client.service.local.AppiumDriverLocalService;
+import TestApplication.Application;
+import TestFactory.TestUserFactory;
+import TestModel.User;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 public class BasicTest {
 
-    private static AppiumDriverLocalService service;
+    Application app;
+    User user;
 
     @BeforeMethod
     public void globalBefore() {
-        service = AppiumDriverLocalService.buildDefaultService();
-        service.start();
+        app = new Application();
+        app.startApp();
+        user = TestUserFactory.getDefaultUser();
     }
 
     @AfterMethod
     public void globalAfter() {
-        service.stop();
+        app.closeApp();
     }
 
 }
